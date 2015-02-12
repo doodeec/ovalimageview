@@ -1,0 +1,22 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0.0"
+    }
+}
+
+task copyLibraryFile(type: Copy) {
+    from "${buildDir}/outputs/aar/${project.name}-debug.aar"
+    into "${rootDir}/library/"
+    rename ("${project.name}-debug.aar", "${project.name}-${android.defaultConfig.versionName}.aar")
+}
+
+task buildLibrary(dependsOn: ['assemble', 'copyLibraryFile']) {
+}
