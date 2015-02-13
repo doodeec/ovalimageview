@@ -38,7 +38,6 @@ public class OvalImageView extends ImageView {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         mClipPath = new Path();
         mClipPath.addRoundRect(new RectF(0, 0, w, h), w / 2, h / 2, Path.Direction.CW);
-        invalidate();
     }
 
     @Override
@@ -71,6 +70,10 @@ public class OvalImageView extends ImageView {
 
             setOutlineProvider(viewOutlineProvider);
             setClipToOutline(true);
+        } else {
+            onSizeChanged(getWidth(), getHeight(), 0, 0);
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
+        invalidate();
     }
 }
